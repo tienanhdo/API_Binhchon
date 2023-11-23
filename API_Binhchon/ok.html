@@ -32,11 +32,10 @@
                          src="./assets/compass.svg"
                          alt="Minimalist compass color gray" />
                 </div>
-                <p class="header__text">
-                    Bạn đã đăng ký thành công việc bình chọn gian hàng
-                </p>
+                <p class="header__text"></p>
+
                 <!--<a class="header__button"
-                   href="https://tsparticles.github.io/404-templates">Return to home</a>-->
+       href="https://tsparticles.github.io/404-templates">Return to home</a>-->
             </div>
             <div class="ilustration-container">
                 <img class="ilustration"
@@ -46,5 +45,21 @@
         </div>
     </main>
     <script src="./index.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy tham số từ URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const ma_dviqly = urlParams.get('ma_dvi');
+
+            // Tìm phần tử để hiển thị thông báo
+            const headerTextElement = document.querySelector('.header__text');
+
+            // Kiểm tra nếu có giá trị ma_dviqly và phần tử để hiển thị
+            if (ma_dviqly && headerTextElement) {
+                // Cập nhật nội dung của phần tử HTML
+                headerTextElement.textContent = `Bạn đã đăng ký thành công việc bình chọn gian hàng ${ma_dviqly}`;
+            }
+        });
+    </script>
 </body>
 </html>

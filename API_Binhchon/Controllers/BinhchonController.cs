@@ -33,7 +33,7 @@ namespace API_Binhchon.Controllers
                         Int64 value = getconn.ins_binhchon(ma_dviqly.Trim(), firstMacAddress.Trim());
                         if (value > 0)
                         {
-                            response.Headers.Location = new Uri("https://kt_thanhtoantructuyen.evnhanoi.vn/QR/ok.html?ma_dvi='"+ ma_dviqly + "'");
+                            response.Headers.Location = new Uri("https://kt_thanhtoantructuyen.evnhanoi.vn/QR/ok.html?ma_dvi='"+ ma_dviqly);
 
                         }
                     }
