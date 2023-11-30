@@ -86,31 +86,28 @@
     <!-- Add a script to fetch data and populate the grid -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const ma_dviqly = urlParams.get('ma_dvi');
 
-            if (ma_dviqly) {
-                fetch(`https://binhchon.evnhanoi.vn/api/Get_thongtin?ma_dvi=${ma_dviqly}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.STATUS === 'SUCCESS') {
-                            // Assuming your grid has an element with id 'grid' to populate data
-                            const grid = document.getElementById('grid');
+            fetch(`https://binhchon.evnhanoi.vn/api/Get_thongtin`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.STATUS === 'SUCCESS') {
+                        // Assuming your grid has an element with id 'grid' to populate data
+                        const grid = document.getElementById('grid');
 
-                            // Assuming P_data is an array of objects
-                            data.DATA.forEach(item => {
-                                const row = document.createElement('div');
-                                row.textContent = `TEN_DVIQLY: ${item.TEN_DVIQLY}, TONG: ${item.TONG}`;
-                                grid.appendChild(row);
-                            });
-                        } else {
-                            console.error('Failed to fetch data');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching data:', error);
-                    });
-            }
+                        // Assuming P_data is an array of objects
+                        data.DATA.forEach(item => {
+                            const row = document.createElement('div');
+                            row.textContent = `TEN_DVIQLY: ${item.TEN_DVIQLY}, TONG: ${item.TONG}`;
+                            grid.appendChild(row);
+                        });
+                    } else {
+                        console.error('Failed to fetch data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
         });
     </script>
     <style>
