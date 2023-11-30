@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 
@@ -83,6 +84,21 @@ namespace API_Binhchon
             conn.Close();
             return result;
         }
+
+        public string getString(String query)
+        {
+            string result = "";
+            conn = new OracleConnection(connectionString);
+            cm = new OracleCommand(query, conn);
+            conn.Open();
+            dr = cm.ExecuteReader(CommandBehavior.SingleResult);
+            while (dr.Read())
+            {
+                result = dr[0].ToString();
+            }
+            conn.Close();
+            return result;
+        }
         public Int64 ins_binhchon(string ma_dviqly, string MAC_adrress)
         {
             string sql = "INSERT INTO X16_HANT.BINHCHON_2023 (ID, MA_DVIQLY, ADRRES_MAC) VALUES ( null,'"+ma_dviqly+"','"+MAC_adrress+"')";
@@ -103,5 +119,18 @@ namespace API_Binhchon
             return re;
         }
 
+        public string get_ten_dvi(string ma_dviqly)
+        {
+            string sql = "select ten_dviqly as tong from CMIS01.D_DVI_QLY  where  MA_DVIQLY = '" + ma_dviqly + "'";
+            string re = getString(sql);
+            return re;
+        }
+
+        public DataSet tong_ket()
+        {
+            string sql = "select b.ten_dviqly,count(*) as tong from X16_HANT.BINHCHON_2023 a join CMIS01.D_DVI_QLY b on a.MA_DVIQLY = b.MA_DVIQLY group by b.ten_dviqly";
+            DataSet re = getDataSet(sql);
+            return re;
+        }
     }
 }
