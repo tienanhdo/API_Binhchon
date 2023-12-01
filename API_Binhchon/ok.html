@@ -86,15 +86,17 @@
     <!-- Add a script to fetch data and populate the grid -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
-            fetch(`https://binhchon.evnhanoi.vn/api/Get_thongtin`)
+            fetch('https://binhchon.evnhanoi.vn/QR/api/Get_thongtin', {
+                method: 'POST', // Thay đổi method thành POST
+                headers: {
+                    'Content-Type': 'application/json', // Thiết lập header cho request
+                },
+                body: JSON.stringify({}) // Thêm body nếu cần truyền dữ liệu
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.STATUS === 'SUCCESS') {
-                        // Assuming your grid has an element with id 'grid' to populate data
                         const grid = document.getElementById('grid');
-
-                        // Assuming P_data is an array of objects
                         data.DATA.forEach(item => {
                             const row = document.createElement('div');
                             row.textContent = `TEN_DVIQLY: ${item.TEN_DVIQLY}, TONG: ${item.TONG}`;
@@ -107,9 +109,9 @@
                 .catch(error => {
                     console.error('Error fetching data:', error);
                 });
-
         });
     </script>
+
     <style>
         .container1 {
             width: 250px;
